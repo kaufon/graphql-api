@@ -1,4 +1,4 @@
-# Documentação dos Endpoints
+Falta fazer os slides e caso # Documentação dos Endpoints
 
 Este documento detalha os endpoints disponíveis no projeto, incluindo os métodos suportados, parâmetros e exemplos de resposta.
 
@@ -16,12 +16,12 @@ Este documento detalha os endpoints disponíveis no projeto, incluindo os métod
   {
     "id": 1,
     "title": "Primeiro Post",
-    "content": "Este é o conteúdo do primeiro post."
+    "body": "Este é o conteúdo do primeiro post."
   },
   {
     "id": 2,
     "title": "Segundo Post",
-    "content": "Este é o conteúdo do segundo post."
+    "body": "Este é o conteúdo do segundo post."
   }
 ]
 ```
@@ -41,8 +41,10 @@ Este documento detalha os endpoints disponíveis no projeto, incluindo os métod
 **Exemplo de Requisição**:
 ```json
 {
-  "title": "Novo Post",
-  "content": "Este é o conteúdo do novo post."
+  "post": {
+    "title": "My second meow",
+    "body": "meow meow"
+  }
 }
 ```
 
@@ -69,51 +71,18 @@ Este documento detalha os endpoints disponíveis no projeto, incluindo os métod
 **Exemplo de Requisição**:
 ```json
 {
-  "query": "{ posts { id title content } }"
+  "query": "query { allPosts { id title body } }"
 }
 ```
 
 **Exemplo de Resposta**:
 ```json
 {
-  "data": {
-    "posts": [
-      {
-        "id": 1,
-        "title": "Primeiro Post",
-        "content": "Este é o conteúdo do primeiro post."
-      },
-      {
-        "id": 2,
-        "title": "Segundo Post",
-        "content": "Este é o conteúdo do segundo post."
-      }
-    ]
+  "query": "mutation CreatePost($title: String!, $body: String!) { createPost(input: {title: $title, body: $body}) { post { id title } errors } }",
+  "variables": {
+    "body": "meow",
+    "title": "My first meow"
   }
-}
-```
-
----
-
-## 4. `GET /up`
-
-**Descrição**: Verifica o estado de saúde da aplicação.
-
-**Método**: `GET`
-
-**Parâmetros**: Nenhum.
-
-**Exemplo de Resposta**:
-- **Em caso de sucesso**:
-```json
-{
-  "status": "ok"
-}
-```
-- **Em caso de erro**:
-```json
-{
-  "status": "error"
 }
 ```
 
